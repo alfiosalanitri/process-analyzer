@@ -1,5 +1,5 @@
 # process-analyzer
-Analyze the ram and cpu usage of a process in real time.
+Analyze the ram and cpu usage of a process in real time from command line in linux.
 
 ![preview](./preview.png)
 
