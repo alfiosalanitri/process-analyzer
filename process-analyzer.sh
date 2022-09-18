@@ -21,12 +21,12 @@ exit 0
 
 # display memory and ram used
 analyze_me() {
- ps -p $1 -o cmd,size,%cpu | tail -n 1 | awk '{name=$1;ram=$2/1024;cpu=$3;printf "Name: [%s] - RAM: [%5.2f Mb] - CPU: [%5.2f%]\n", name, ram, cpu}'
+ ps -p $1 -o size,%cpu,cmd | tail -n 1 | awk '{ram=$1/1024;cpu=$2;name=$3;printf "Name: [%s] - RAM: [%5.2f Mb] - CPU: [%5.2f%]\n", name, ram, cpu}'
 }
 
 # inteval seconds
 interval=.1
-
+pid='search'
 # check user options
 while [ $# -gt 0 ] ; do
   case $1 in
