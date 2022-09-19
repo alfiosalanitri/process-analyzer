@@ -60,16 +60,31 @@ done
 # get process name from cli
 if [ "auto" == "$pid" ]; then
   read -p "Type the process name: "
-  pid=$(pgrep "$REPLY")
-  if [ "" == "$pid" ]; then
-    echo "Sorry, but this process doesn't exists. Try again."
-    exit 1
+  readarray -t pid_list <<<"$(pgrep -a "$REPLY")"
+  pid_list_tot="${#pid_list[@]}"
+  if [ $pid_list_tot -gt 1 ]; then
+    echo "Choose the process to use:"
+    echo ""
+    PS3='Type the choice number: '
+    select pid_number in "${pid_list[@]}"; do
+      pid=$(echo $pid_number | awk '{print $1}')
+      if ! [ "$REPLY" -eq "$REPLY" ] 2>/dev/null; then
+        echo "$REPLY must be an integear. Try again"
+        exit 1
+      fi
+      if [ $REPLY -eq 0 ] || [ $REPLY -gt ${#pid_list[@]} ]; then
+        echo "$REPLY isn't a valid option. Try again"
+        exit 1
+      fi
+      break
+    done
+  else
+    pid=$(echo ${pid_list[0]} | awk '{print $1}')
   fi
 fi
 
 # validate pid id again.
 is_integear $pid
-
 # start
 echo "----------------------------------"
 echo "Process Analyzer for PID $pid"
