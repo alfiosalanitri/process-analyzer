@@ -4,7 +4,7 @@ Analyze the ram and cpu usage of a process in real time from command line in lin
 ![preview](./preview.png)
 
 ## Installation
-- `sudo ln -s /path/to/process-analyzer.sh /usr/local/bin/process-analyzer`
+- `sudo ln -s /path/to/process-analyzer /usr/local/bin/process-analyzer`
 
 ## Usage
 - `process-analyzer [-n] 5` to refresh every 5 seconds
